@@ -1,0 +1,30 @@
+{
+  "name": "sales-intelligence-system",
+  "version": "1.0.0",
+  "description": "Knowledge Management System for Impetus Technologies Sales Team",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm start --prefix frontend",
+    "build:backend": "npm run build --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:all": "npm run build:backend && npm run build:frontend",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose up --build",
+    "test:backend": "npm test --prefix backend",
+    "test:frontend": "npm test --prefix frontend"
+  },
+  "keywords": [
+    "sales",
+    "intelligence",
+    "knowledge-management",
+    "salesforce",
+    "react",
+    "node",
+    "postgresql"
+  ],
+  "author": "Impetus Technologies",
+  "license": "ISC"
+}
