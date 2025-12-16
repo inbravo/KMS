@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/auth.middleware';
+import { strictLimiter } from '../middleware/rateLimiter.middleware';
 import { 
   getAllInsights,
   getTrendInsights,
@@ -9,8 +10,9 @@ import {
 
 const router = Router();
 
-// All routes require authentication
+// All routes require authentication and have strict rate limiting (expensive queries)
 router.use(authMiddleware);
+router.use(strictLimiter);
 
 router.get('/', getAllInsights);
 router.get('/trends', getTrendInsights);
