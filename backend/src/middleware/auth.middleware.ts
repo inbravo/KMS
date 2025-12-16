@@ -1,7 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+// Ensure JWT_SECRET is set in production
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  throw new Error('FATAL ERROR: JWT_SECRET is not defined in production environment');
+}
+
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-key-for-local-development-only';
 
 export interface AuthenticatedRequest extends Request {
   user?: {
@@ -9,6 +14,12 @@ export interface AuthenticatedRequest extends Request {
     email: string;
     role: string;
   };
+}
+
+interface JWTPayload {
+  id: string;
+  email: string;
+  role: string;
 }
 
 export const authMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
@@ -20,7 +31,7 @@ export const authMiddleware = (req: AuthenticatedRequest, res: Response, next: N
     }
 
     const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
     
     req.user = {
       id: decoded.id,

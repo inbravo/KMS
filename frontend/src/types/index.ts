@@ -42,7 +42,7 @@ export interface InsightData {
   insight_type: 'trend' | 'forecast' | 'recommendation' | 'alert';
   title: string;
   description: string;
-  data: any;
+  data: TrendData[] | ForecastData[] | PerformerData[] | Record<string, unknown>;
   created_at: string;
 }
 
@@ -58,4 +58,13 @@ export interface ForecastData {
   count: string;
   total_value: string;
   weighted_value: string;
+  [key: string]: string | number; // Allow indexing for Recharts compatibility
+}
+
+export interface PerformerData {
+  name: string;
+  email: string;
+  deals_count: string;
+  total_value: string;
+  won_count: string;
 }

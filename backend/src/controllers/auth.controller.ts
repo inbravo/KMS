@@ -4,7 +4,12 @@ import jwt from 'jsonwebtoken';
 import pool from '../config/database';
 import { AuthRequest, AuthResponse } from '../types';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+// Ensure JWT_SECRET is set in production
+if (!process.env.JWT_SECRET && process.env.NODE_ENV === 'production') {
+  throw new Error('FATAL ERROR: JWT_SECRET is not defined in production environment');
+}
+
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-key-for-local-development-only';
 
 export const register = async (req: Request, res: Response) => {
   try {

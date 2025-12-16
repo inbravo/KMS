@@ -21,12 +21,34 @@ export interface SalesData {
   updated_at: Date;
 }
 
+export interface TrendInsightData {
+  month: Date;
+  opportunity_count: number;
+  total_value: number;
+  avg_probability: number;
+}
+
+export interface ForecastInsightData {
+  stage: string;
+  count: number;
+  total_value: number;
+  weighted_value: number;
+}
+
+export interface PerformerInsightData {
+  name: string;
+  email: string;
+  deals_count: number;
+  total_value: number;
+  won_count: number;
+}
+
 export interface SalesInsight {
   id: string;
   insight_type: 'trend' | 'forecast' | 'recommendation' | 'alert';
   title: string;
   description: string;
-  data: any;
+  data: TrendInsightData[] | ForecastInsightData[] | PerformerInsightData[] | Record<string, unknown>;
   created_at: Date;
 }
 
