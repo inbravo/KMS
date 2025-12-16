@@ -140,7 +140,7 @@ const Dashboard: React.FC = () => {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={forecast}
+                  data={forecast as any}
                   dataKey="count"
                   nameKey="stage"
                   cx="50%"
